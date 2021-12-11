@@ -1,0 +1,364 @@
+<script src="https://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+<style>
+  @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
+  #additional-menu .nav > li > a {
+    padding: 3px 6px;
+  }
+
+  .heading-primary {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .acc-h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .acc-h3 {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 24px;
+    font-style: italic;
+    color: tomato !important;
+    margin-bottom: 50px;
+  }
+
+  .ac-menu {
+    margin: 20px 40px;
+  }
+
+  .ac-menu_item {
+    list-style: decimal;
+    font-size: 16px;
+  }
+
+  .accordion dl,
+  .accordion-list {
+    border: 1px solid #ddd;
+  }
+
+  .accordion dl:after,
+  .accordion-list:after {
+    content: "";
+    display: block;
+    height: 1em;
+    width: 100%;
+    background-color: #2ba659;
+  }
+
+  .accordion dd,
+  .accordion__panel {
+    background-color: #eee;
+    font-size: 1em;
+    line-height: 1.5em;
+  }
+
+  .accordion p {
+    padding: 1em 2em 1em 2em;
+  }
+
+  .accordion {
+    position: relative;
+    background-color: #eee;
+  }
+
+  .accordionTitle,
+  .accordion__Heading {
+    background-color: #38cc70;
+    text-align: center;
+    font-weight: 700;
+    padding: 2em;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    -webkit-transition: background-color 0.5s ease-in-out;
+    transition: background-color 0.5s ease-in-out;
+    border-bottom: 1px solid #30bb64;
+  }
+
+  .accordion-title {
+    color: #fff !important;
+  }
+
+  .accordionTitle:before,
+  .accordion__Heading:before {
+    content: "+";
+    font-size: 1.5em;
+    line-height: 0.5em;
+    float: left;
+    -webkit-transition: -webkit-transform 0.3s ease-in-out;
+    transition: -webkit-transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  }
+
+  .accordionTitle:hover,
+  .accordion__Heading:hover {
+    background-color: #2ba659;
+    color: #fff;
+  }
+
+  .accordionTitleActive,
+  .accordionTitle.is-expanded {
+    background-color: #2ba659;
+  }
+
+  .accordionTitleActive:before,
+  .accordionTitle.is-expanded:before {
+    -webkit-transform: rotate(-225deg);
+    transform: rotate(-225deg);
+  }
+
+  .accordionItem {
+    height: auto;
+    overflow: hidden;
+    max-height: 50em;
+    -webkit-transition: max-height 1s;
+    transition: max-height 1s;
+  }
+
+  @media screen and (min-width: 48em) {
+    .accordionItem {
+      max-height: 15em;
+      -webkit-transition: max-height 0.5s;
+      transition: max-height 0.5s;
+    }
+  }
+
+  .accordionItem.is-collapsed {
+    max-height: 0;
+  }
+
+  .no-js .accordionItem.is-collapsed {
+    max-height: auto;
+  }
+
+  .animateIn {
+    -webkit-animation: accordionIn 0.45s normal ease-in-out both 1;
+    animation: accordionIn 0.45s normal ease-in-out both 1;
+  }
+
+  .animateOut {
+    -webkit-animation: accordionOut 0.45s alternate ease-in-out both 1;
+    animation: accordionOut 0.45s alternate ease-in-out both 1;
+  }
+
+  @-webkit-keyframes accordionIn {
+    0% {
+      opacity: 0;
+      -webkit-transform: scale(0.9) rotateX(-60deg);
+      transform: scale(0.9) rotateX(-60deg);
+      -webkit-transform-origin: 50% 0;
+      transform-origin: 50% 0;
+    }
+
+    100% {
+      opacity: 1;
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+  }
+
+  @keyframes accordionIn {
+    0% {
+      opacity: 0;
+      -webkit-transform: scale(0.9) rotateX(-60deg);
+      transform: scale(0.9) rotateX(-60deg);
+      -webkit-transform-origin: 50% 0;
+      transform-origin: 50% 0;
+    }
+
+    100% {
+      opacity: 1;
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+  }
+
+  @-webkit-keyframes accordionOut {
+    0% {
+      opacity: 1;
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+
+    100% {
+      opacity: 0;
+      -webkit-transform: scale(0.9) rotateX(-60deg);
+      transform: scale(0.9) rotateX(-60deg);
+    }
+  }
+
+  @keyframes accordionOut {
+    0% {
+      opacity: 1;
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+
+    100% {
+      opacity: 0;
+      -webkit-transform: scale(0.9) rotateX(-60deg);
+      transform: scale(0.9) rotateX(-60deg);
+    }
+  }
+</style>
+<div class="container">
+  <h1 class="heading-primary">Пиломатериалы оцениваются в зависимости от их качества, которое определяется сортом.</h1>
+  <h2 class="acc-h2">Описание сортности погонажных изделий.</h2>
+  <div class="accordion">
+    <dl>
+      <dt>
+        <a href="#accordion1" aria-expanded="false" aria-controls="accordion1"
+          class="accordion-title accordionTitle js-accordionTrigger">Сорт Экстра</a>
+      </dt>
+      <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true">
+        <ul class="ac-menu">
+          <li class="ac-menu_item">
+            Допускаются сучки на обратной стороне
+          </li>
+          <li class="ac-menu_item">
+            Допускаются недостроги на обратной стороне
+          </li>
+          <li class="ac-menu_item">
+            Не допускаются сучки на лицевой стороне D более 5мм
+          </li>
+          <li class="ac-menu_item">
+            Не допускается кривизна
+          </li>
+        </ul>
+      </dd>
+      <dt>
+        <a href="#accordion2" aria-expanded="false" aria-controls="accordion2"
+          class="accordion-title accordionTitle js-accordionTrigger">Сорт А</a>
+      </dt>
+      <dd class="accordion-content accordionItem is-collapsed" id="accordion2" aria-hidden="true">
+        <ul class="ac-menu">
+          <li class="ac-menu_item">
+            Допускаются живие и темные крепкосидящие сучки
+          </li>
+          <li class="ac-menu_item">
+            Допускается легкий винт
+          </li>
+          <li class="ac-menu_item">
+            Не допускаются выпадные сучки
+          </li>
+          <li class="ac-menu_item">
+            Не допускается обзел
+          </li>
+          <li class="ac-menu_item">
+            Не допускается кривизнал
+          </li>
+          <li class="ac-menu_item">
+            Не допускаются дырки
+          </li>
+        </ul>
+      </dd>
+      <dt>
+        <a href="#accordion3" aria-expanded="false" aria-controls="accordion3"
+          class="accordion-title accordionTitle js-accordionTrigger">Сорт В</a>
+      </dt>
+      <dd class="accordion-content accordionItem is-collapsed" id="accordion3" aria-hidden="true">
+        <ul class="ac-menu">
+          <li class="ac-menu_item">
+            Допускаются любые сучки
+          </li>
+          <li class="ac-menu_item">
+            Допускается легкая синевы
+          </li>
+          <li class="ac-menu_item">
+            Допускается легкий винт
+          </li>
+          <li class="ac-menu_item">
+            Допускается легкий обзел
+          </li>
+          <li class="ac-menu_item">
+            Допускается кривизна
+          </li>
+        </ul>
+      </dd>
+      <dt>
+        <a href="#accordion4" aria-expanded="false" aria-controls="accordion4"
+          class="accordion-title accordionTitle js-accordionTrigger">Сорт А/В</a>
+      </dt>
+      <dd class="accordion-content accordionItem is-collapsed" id="accordion4" aria-hidden="true">
+        <ul class="ac-menu">
+          <li class="ac-menu_item">
+            Микс сорта А и В, в пропорции 50/50
+          </li>
+        </ul>
+      </dd>
+    </dl>
+  </div>
+  <h3 class="acc-h3">*** Все выше перечисление критерии к сортности изделий применяется только к лицевой части.</h3>
+</div>
+
+<script>
+  //uses classList, setAttribute, and querySelectorAll
+  //if you want this to work in IE8/9 youll need to polyfill these
+  (function () {
+    var d = document,
+      accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
+      setAria,
+      setAccordionAria,
+      switchAccordion,
+      touchSupported = ('ontouchstart' in window),
+      pointerSupported = ('pointerdown' in window);
+
+    skipClickDelay = function (e) {
+      e.preventDefault();
+      e.target.click();
+    }
+
+    setAriaAttr = function (el, ariaType, newProperty) {
+      el.setAttribute(ariaType, newProperty);
+    };
+    setAccordionAria = function (el1, el2, expanded) {
+      switch (expanded) {
+        case "true":
+          setAriaAttr(el1, 'aria-expanded', 'true');
+          setAriaAttr(el2, 'aria-hidden', 'false');
+          break;
+        case "false":
+          setAriaAttr(el1, 'aria-expanded', 'false');
+          setAriaAttr(el2, 'aria-hidden', 'true');
+          break;
+        default:
+          break;
+      }
+    };
+    //function
+    switchAccordion = function (e) {
+      console.log("triggered");
+      e.preventDefault();
+      var thisAnswer = e.target.parentNode.nextElementSibling;
+      var thisQuestion = e.target;
+      if (thisAnswer.classList.contains('is-collapsed')) {
+        setAccordionAria(thisQuestion, thisAnswer, 'true');
+      } else {
+        setAccordionAria(thisQuestion, thisAnswer, 'false');
+      }
+      thisQuestion.classList.toggle('is-collapsed');
+      thisQuestion.classList.toggle('is-expanded');
+      thisAnswer.classList.toggle('is-collapsed');
+      thisAnswer.classList.toggle('is-expanded');
+
+      thisAnswer.classList.toggle('animateIn');
+    };
+    for (var i = 0, len = accordionToggles.length; i < len; i++) {
+      if (touchSupported) {
+        accordionToggles[i].addEventListener('touchstart', skipClickDelay, false);
+      }
+      if (pointerSupported) {
+        accordionToggles[i].addEventListener('pointerdown', skipClickDelay, false);
+      }
+      accordionToggles[i].addEventListener('click', switchAccordion, false);
+    }
+  })();
+</script>
